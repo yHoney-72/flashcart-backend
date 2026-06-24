@@ -56,5 +56,17 @@ public class GlobalExceptionHandler {
 
         return Map.of("message", ex.getMessage());
     }
+@ExceptionHandler(OutOfStockException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Map<String, String> handleOutOfStockException(OutOfStockException ex) {
+        return Map.of("message", ex.getMessage());
+}
+    @ExceptionHandler(IllegalStateException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Map<String, String> handleIllegalStateException(
+            IllegalStateException ex) {
+
+        return Map.of("message", ex.getMessage());
+    }
 
 }

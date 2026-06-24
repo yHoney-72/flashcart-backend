@@ -20,14 +20,14 @@ public class FlashCartSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable());
-        http
+       http.csrf(csrf -> csrf.disable());
+       http
                 .authorizeHttpRequests(auth ->auth
                         .requestMatchers("/api/v1/auth/**","/api/v1/users/auth/**").permitAll()
                         /*.requestMatchers(HttpMethod.Post,"/products").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT,"/products/**").hasRole("ADMIN")*/    // but we use pre_authoirze
 
-                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
 

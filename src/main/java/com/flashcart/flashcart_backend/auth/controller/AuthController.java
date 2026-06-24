@@ -6,6 +6,8 @@ import com.flashcart.flashcart_backend.user.dto.UserRequestDTO;
 import com.flashcart.flashcart_backend.user.dto.UserResponseDTO;
 import com.flashcart.flashcart_backend.user.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,18 +25,17 @@ public class AuthController {
     }
 
     @PostMapping("/register/customer")
-    public UserResponseDTO registerCustomer(
+    public ResponseEntity<UserResponseDTO> registerCustomer(
             @Valid @RequestBody UserRequestDTO userRequestDTO){
-        return userService.registerCustomer(userRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.registerCustomer(userRequestDTO));
     }
     @PostMapping("/register/store-owner")
-    public UserResponseDTO registerStoreOwner(
+    public ResponseEntity<UserResponseDTO> registerStoreOwner(
             @Valid @RequestBody UserRequestDTO userRequestDTO){
-        return userService.registerStoreOwner(userRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.registerStoreOwner(userRequestDTO));
     }
     @PostMapping("/login")
-    public LoginResponseDTO login(@Valid @RequestBody LoginRequestDTO loginRequestDTO){
-     return   authService.login(loginRequestDTO);
-
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO loginRequestDTO){
+        return ResponseEntity.ok(authService.login(loginRequestDTO));
     }
 }

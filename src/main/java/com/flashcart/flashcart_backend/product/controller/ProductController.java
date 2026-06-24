@@ -5,6 +5,7 @@ import com.flashcart.flashcart_backend.product.dto.ProductResponseDTO;
 import com.flashcart.flashcart_backend.product.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,31 +20,26 @@ public class ProductController {
     }
     @PostMapping
     @PreAuthorize("hasRole('STORE_OWNER')")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponseDTO create(@Valid @RequestBody ProductRequestDTO productRequestDTO){
-        return productService.save(productRequestDTO);
+    public ResponseEntity<ProductResponseDTO> create(@Valid @RequestBody ProductRequestDTO productRequestDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productRequestDTO));
     }
     @GetMapping
-
-    @ResponseStatus(HttpStatus.OK)
-    public List<ProductResponseDTO> findAll(){
-        return productService.findAll();
+    public ResponseEntity<List<ProductResponseDTO>> findAll(){
+        return ResponseEntity.ok(productService.findAll());
     }
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public ProductResponseDTO findById(@PathVariable Long id){
-        return productService.findById(id);
+    public ResponseEntity<ProductResponseDTO> findById(@PathVariable Long id){
+        return ResponseEntity.ok(productService.findById(id));
     }
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('STORE_OWNER')")
-    @ResponseStatus(HttpStatus.OK)
-    public ProductResponseDTO update(@Valid @RequestBody ProductRequestDTO productRequestDTO ,  @PathVariable Long id){
-        return productService.updateProduct(id, productRequestDTO);
+    public ResponseEntity<ProductResponseDTO> update(@Valid @RequestBody ProductRequestDTO productRequestDTO ,  @PathVariable Long id){
+        return ResponseEntity.ok(productService.updateProduct(id, productRequestDTO));
     }
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('STORE_OWNER')")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProduct(@PathVariable Long id ){
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id ){
         productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
     }
 }
