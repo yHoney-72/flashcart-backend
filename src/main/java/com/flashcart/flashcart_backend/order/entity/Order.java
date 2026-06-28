@@ -1,5 +1,6 @@
 package com.flashcart.flashcart_backend.order.entity;
 
+import com.flashcart.flashcart_backend.driver.entity.Driver;
 import com.flashcart.flashcart_backend.enums.orders.OrderStatus;
 import com.flashcart.flashcart_backend.store.entity.Store;
 import com.flashcart.flashcart_backend.user.entity.User;
@@ -73,4 +74,7 @@ public class Order {
 
     @Column(nullable = false)
     private String pincode;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "driver_id")
+    private Driver driver;
 }

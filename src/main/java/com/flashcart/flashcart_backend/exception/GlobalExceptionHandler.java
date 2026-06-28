@@ -68,5 +68,20 @@ public class GlobalExceptionHandler {
 
         return Map.of("message", ex.getMessage());
     }
+    @ExceptionHandler(PhoneNumberAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Map<String, String> handlePhoneNumberAlreadyExistsException(PhoneNumberAlreadyExistsException ex) {
+        return Map.of("message", ex.getMessage());
+    }
+    @ExceptionHandler(LicenseNumberAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Map<String, String> handleLicenseNumberAlreadyExistsException(LicenseNumberAlreadyExistsException ex) {
+        return Map.of("message", ex.getMessage());
+    }
+    @ExceptionHandler(VehicleNumberAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Map<String, String> handleVehicleNumberAlreadyExistsException(VehicleNumberAlreadyExistsException ex) {
+        return Map.of("message", ex.getMessage());
+    }
 
 }
