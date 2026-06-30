@@ -83,5 +83,10 @@ public class GlobalExceptionHandler {
     public Map<String, String> handleVehicleNumberAlreadyExistsException(VehicleNumberAlreadyExistsException ex) {
         return Map.of("message", ex.getMessage());
     }
+    @ExceptionHandler(DeliveryTrackingAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Map<String, String> handleDeliveryTrackingAlreadyExistsException(DeliveryTrackingAlreadyExistsException ex) {
+        return Map.of("message", ex.getMessage());
+    }
 
 }
